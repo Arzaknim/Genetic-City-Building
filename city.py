@@ -7,12 +7,17 @@ import numpy as np
 class City:
     RANGE = 5
 
-    def __init__(self, height, width, probabilities):
+    def __init__(self, height, width, probabilities=None, genome=None):
         self.height = height
         self.width = width
-        self.map = self.init_map(probabilities)
+        if genome is None:
+            self.map = self.init_map(probabilities)
+            self.genome = self.flatten_map()
+        elif probabilities is None:
+            self.genome = genome
+            self.map = self.create_map_from_genome()
+
         self.fitness = self.calc_fitness()
-        self.genome = self.flatten_map()
 
     def calc_fitness(self):
         fitness = 0
@@ -107,6 +112,34 @@ class City:
                 result[y].append(choices(choices_pop, choices_weights)[0])
 
         return result
+
+    def create_map_from_genome(self):
+        result = []
+
+        for y in range(self.height):
+            result.append([])
+            for x in range(self.width):
+                idx = y * self.width + x
+                entity = None
+                if self.genome[idx] == '0':
+                    entity = EntityEnum.EMPTY
+                elif self.genome[idx] == '1':
+                    entity = EntityEnum.ROAD
+                elif self.genome[idx] == '2':
+                    entity = EntityEnum.GROCERIES
+                elif self.genome[idx] == '3':
+                    entity = EntityEnum.APARTMENTS
+                elif self.genome[idx] == '4':
+                    entity = EntityEnum.ENTERTAINMENT
+                if self.genome[idx] == '5':
+                    entity = EntityEnum.EMPLOYMENT
+                result[y].append(entity)
+
+        return result
+
+    def get_genome(self):
+        return self.genome
+
 
 
 
