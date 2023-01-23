@@ -1,9 +1,11 @@
 from enum import Enum
 
 
-class BuildingEnum(Enum):
-    EMPLOYMENT = 'Empl'
-    ENTERTAINMENT = 'Ent'
-    APARTMENTS = 'Apts'
-    GROCERIES = 'Groc'
-    ROAD = 'Road'
+class EntityEnum(Enum):
+    EMPLOYMENT = 5
+    ENTERTAINMENT = 4
+    APARTMENTS = 3
+    GROCERIES = 2
+    ROAD = 1
+    EMPTY = 0
+

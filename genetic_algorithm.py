@@ -1,10 +1,11 @@
 from city import City
+from buildings_enum import EntityEnum
 
 
 class GeneticAlgorithm:
 
     def __init__(self, algo_params, init_probabilities):
-        self.num_cities = algo_params['algo_params']
+        self.num_cities = algo_params['num_cities']
         self.generations = algo_params['generations']
         self.mutation = algo_params['mutation']
         self.width = algo_params['width']
@@ -12,9 +13,9 @@ class GeneticAlgorithm:
         self.population = self.init_generation(self.height, self.width, init_probabilities)
 
     def run(self):
-
-        for i in range(self.generations):
-            pass
+        self.population[0].show_graph()
+        # for i in range(self.generations):
+        #     pass
 
     def init_generation(self, height, width, probabilities):
 

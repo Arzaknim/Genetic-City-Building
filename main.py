@@ -1,5 +1,5 @@
 from genetic_algorithm import GeneticAlgorithm
-from buildings_enum import BuildingEnum
+from buildings_enum import EntityEnum
 
 
 if __name__ == '__main__':
@@ -13,11 +13,12 @@ if __name__ == '__main__':
     }
 
     init_probabilities = {
-        BuildingEnum.APARTMENTS: 0.001,
-        BuildingEnum.EMPLOYMENT: 0.005,
-        BuildingEnum.ENTERTAINMENT: 0.02,
-        BuildingEnum.GROCERIES: 0.01,
-        BuildingEnum.ROAD: 0.05,
+        EntityEnum.APARTMENTS: 0.08,
+        EntityEnum.EMPLOYMENT: 0.06,
+        EntityEnum.ENTERTAINMENT: 0.08,
+        EntityEnum.GROCERIES: 0.06,
+        EntityEnum.ROAD: 0.2,
+        EntityEnum.EMPTY: 0.5
     }
 
     GeneticAlgorithm(algo_params, init_probabilities).run()
