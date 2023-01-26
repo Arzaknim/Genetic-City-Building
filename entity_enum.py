@@ -6,6 +6,5 @@ class EntityEnum(Enum):
     ENTERTAINMENT = 4
     APARTMENTS = 3
     GROCERIES = 2
-    ROAD = 1
-    EMPTY = 0
+    GREENERY = 1
 

@@ -1,6 +1,7 @@
 import math
 
 from city import City
+from graphing_service import GraphingService
 import random as rnd
 
 
@@ -18,12 +19,14 @@ class GeneticAlgorithm:
         for i in range(self.generations):
             self.keep_top_half()
             self.multiply()
-            self.population.sort(key=lambda x: x.fitness, reverse=True)
-            print(f'Best fitness of generation {i+1}:')
-            print(self.population[0].fitness)
-            print('--------------')
+            self.population.sort(key=lambda x: x.get_fitness(), reverse=True)
+            if (i + 1) % 10 == 0:
+                print(f'Best fitness of generation {i+1} out of {self.generations}:')
+                print(self.population[0].get_fitness())
+                print('--------------')
 
-        self.population[0].show_graph()
+        best = self.population[0]
+        GraphingService().show_graph(best)
 
     def init_population(self, probabilities):
         result = []
@@ -34,7 +37,7 @@ class GeneticAlgorithm:
 
     def keep_top_half(self):
         limit = math.floor(self.num_cities/2)
-        self.population.sort(key=lambda x: x.fitness, reverse=True)
+        self.population.sort(key=lambda x: x.get_fitness(), reverse=True)
         self.population = self.population[:limit]
 
     def single_point_crossover(self, parent1, parent2):
@@ -48,11 +51,11 @@ class GeneticAlgorithm:
         for i in range(len(individual.get_genome())):
             p = rnd.random()
             if p < self.mutation:
-                others = ['0', '1', '2', '3', '4', '5']
-                others.remove(individual.genome[i])
-                lst = list(individual.genome)
+                others = ['1', '2', '3', '4', '5']
+                others.remove(individual._genome[i])
+                lst = list(individual._genome)
                 lst[i] = rnd.choice(others)
-                individual.genome = ''.join(lst)
+                individual._genome = ''.join(lst)
 
     def multiply(self):
         result = []
